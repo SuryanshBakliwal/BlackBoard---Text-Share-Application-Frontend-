@@ -3,6 +3,7 @@ import { getRoom } from './shareAPi';
 import Editor from '@monaco-editor/react';
 import { useParams, useNavigate } from 'react-router-dom';
 import ShareTextLoader from './ShareTextLoader';
+import { QRCodeCanvas } from 'qrcode.react'
 
 function Room() {
 
@@ -21,6 +22,10 @@ function Room() {
     const [language, setLanguage] = useState("plaintext");
     const [roomNotFound, setRoomNotFound] = useState(false);
     const [loading, setLoading] = useState(true);
+    const [showShare, setShowShare] = useState(false);
+
+    // link for qr code
+    const roomLink = `${window.location.origin}/${roomCode}`
 
     const editorOptions = {
         fontSize: 14,
@@ -40,9 +45,8 @@ function Room() {
         debounceRef.current = setTimeout(() => {
             if (socketRef.current && socketRef.current.readyState === WebSocket.OPEN) {
                 socketRef.current.send(value || "");
-
-                sendCountRef.current += 1;
-                console.log(" Messages sent:", sendCountRef.current);
+                // sendCountRef.current += 1;
+                // console.log(" Messages sent:", sendCountRef.current);
             }
         }, 300);
     };
@@ -91,13 +95,13 @@ function Room() {
         socketRef.current = socket;
 
         socket.onopen = () => {
-            connectCountRef.current += 1;
-            console.log(" WebSocket connected:", connectCountRef.current);
+            // connectCountRef.current += 1;
+            // console.log(" WebSocket connected:", connectCountRef.current);
         };
 
         socket.onmessage = (e) => {
-            messageCountRef.current += 1;
-            console.log("Messages received:", messageCountRef.current);
+            // messageCountRef.current += 1;
+            // console.log("Messages received:", messageCountRef.current);
 
             setContent(e.data);
         };
@@ -162,8 +166,24 @@ function Room() {
                 <div className="row justify-content-center">
                     <div className="col-12 col-xl-11">
 
-                        <section className="bb-main-card p-4 p-md-5 rounded-4">
+                        <section className="bb-main-card p-2 p-md-3 rounded-4">
 
+                            <div className="d-flex justify-content-end align-items-center gap-2 mb-3">
+                                <button
+                                    className="btn btn-primary d-flex align-items-center justify-content-center"
+                                    onClick={() => navigator.clipboard.writeText(content)}
+                                >
+                                    <i className="bi bi-clipboard"></i>
+                                </button>
+
+                                <button
+                                    className="share-btn d-flex align-items-center justify-content-center"
+                                    onClick={() => setShowShare(true)}
+                                >
+                                    <i className="bi bi-share"></i>
+                                </button>
+
+                            </div>
                             <Editor
                                 height="400px"
                                 theme="vs-dark"
@@ -186,6 +206,48 @@ function Room() {
                     </div>
                 </div>
             </div>
+
+            {showShare && (
+                <div
+                    className="share-overlay"
+                    onClick={() => setShowShare(false)}
+                >
+                    <div
+                        className="share-card"
+                        onClick={(e) => e.stopPropagation()}
+                    >
+                        {/* Header */}
+                        <div className="share-header">
+                            <h5>Share Room</h5>
+                            <button onClick={() => setShowShare(false)}>
+                                <i className="bi bi-x-lg"></i>
+                            </button>
+                        </div>
+
+                        {/* QR */}
+                        <div className="qr-container">
+                            <QRCodeCanvas value={roomLink} size={170} />
+                        </div>
+
+                        {/* Link box */}
+                        <div className="link-box">
+                            <input value={roomLink} readOnly />
+                            <button
+                                onClick={() => {
+                                    navigator.clipboard.writeText(roomLink);
+                                }}
+                            >
+                                <i className="bi bi-clipboard"></i>
+                            </button>
+                        </div>
+
+                        {/* Footer */}
+                        <p className="hint-text">
+                            Scan QR or copy link to share
+                        </p>
+                    </div>
+                </div>
+            )}
         </main>
     );
 }

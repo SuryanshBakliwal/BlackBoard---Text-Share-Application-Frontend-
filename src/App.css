@@ -52,6 +52,129 @@
     animation: blink 1s infinite;
 }
 
+/* Overlay */
+.share-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.65);
+    backdrop-filter: blur(6px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+}
+
+/* Modal Card */
+.share-card {
+    width: 340px;
+    background: rgba(30, 30, 30, 0.85);
+    backdrop-filter: blur(12px);
+    border-radius: 16px;
+    padding: 20px;
+    color: white;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    animation: scaleIn 0.2s ease;
+}
+
+/* Animation */
+@keyframes scaleIn {
+    from {
+        transform: scale(0.9);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* Header */
+.share-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.share-header h5 {
+    margin: 0;
+    font-weight: 600;
+}
+
+.share-header button {
+    background: none;
+    border: none;
+    color: #ccc;
+    cursor: pointer;
+}
+
+/* QR */
+.qr-container {
+    margin: 20px 0;
+    display: flex;
+    justify-content: center;
+}
+
+/* Link Box */
+.link-box {
+    display: flex;
+    background: #2a2a2a;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.link-box input {
+    flex: 1;
+    border: none;
+    background: transparent;
+    color: #ddd;
+    padding: 10px;
+    font-size: 13px;
+}
+
+.link-box input:focus {
+    outline: none;
+}
+
+.link-box button {
+    background: #3b82f6;
+    border: none;
+    padding: 0 14px;
+    color: white;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.link-box button:hover {
+    background: #2563eb;
+}
+
+/* Hint */
+.hint-text {
+    text-align: center;
+    font-size: 12px;
+    color: #aaa;
+    margin-top: 12px;
+}
+
+/* Share Button */
+.share-btn {
+    border: none;
+    background: rgba(255, 255, 255, 0.08);
+    padding: 8px 10px;
+    border-radius: 10px;
+    color: white;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.share-btn:hover {
+    background: rgba(255, 255, 255, 0.18);
+}
+
 @keyframes blink {
     50% {
         opacity: 0;
