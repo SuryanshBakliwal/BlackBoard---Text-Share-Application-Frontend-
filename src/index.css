@@ -216,3 +216,51 @@ body {
   }
 }
 
+/* Auth forms */
+.bb-form-label {
+  color: #d1d5db;
+  font-size: 0.9rem;
+}
+
+.bb-form-input {
+  background-color: #161b22;
+  border: 1px solid #2a2f3a;
+  color: #e5e7eb;
+  border-radius: 10px;
+  min-height: 44px;
+}
+
+.bb-form-input::placeholder {
+  color: #6b7280;
+}
+
+.bb-form-input:focus {
+  background-color: #161b22;
+  border-color: #3b4250;
+  color: #e5e7eb;
+  box-shadow: none;
+}
+
+.bb-form-input.is-invalid {
+  border-color: #dc3545;
+}
+
+.bb-auth-switch {
+  color: #9ca3af;
+  font-size: 0.9rem;
+}
+
+.bb-auth-switch a {
+  color: #f6c453;
+  text-decoration: none;
+}
+
+.bb-auth-switch a:hover {
+  text-decoration: underline;
+}
+
+.bb-form-success {
+  color: #22c55e;
+  font-size: 0.9rem;
+}
+

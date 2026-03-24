@@ -1,13 +1,14 @@
 import React from 'react';
+import { Link, NavLink } from 'react-router-dom';
 
 function Navbar() {
   return (
     <nav className="navbar navbar-expand-lg bb-navbar">
       <div className="container">
-        <a className="navbar-brand d-flex align-items-center" href="#">
+        <Link className="navbar-brand d-flex align-items-center" to="/">
           <span className="bb-logo-dot me-2" />
           <span className="bb-logo-text">blackboard</span>
-        </a>
+        </Link>
 
         <button
           className="navbar-toggler bb-navbar-toggler"
@@ -24,19 +25,19 @@ function Navbar() {
         <div className="collapse navbar-collapse justify-content-end" id="navbarContent">
           <ul className="navbar-nav align-items-lg-center gap-lg-3 mb-2 mb-lg-0">
             <li className="nav-item">
-              <a className="nav-link bb-nav-link active" href="#">
+              <NavLink className="nav-link bb-nav-link" to="/">
                 Home
-              </a>
+              </NavLink>
             </li>
             <li className="nav-item">
-              <a className="nav-link bb-nav-link" href="#">
-                Basic
-              </a>
+              <NavLink className="nav-link bb-nav-link" to="/signup">
+                Sign Up
+              </NavLink>
             </li>
             <li className="nav-item ms-lg-2">
-              <button className="btn bb-signin-btn btn-sm rounded-pill" type="button">
+              <NavLink className="btn bb-signin-btn btn-sm rounded-pill" to="/login">
                 Sign In
-              </button>
+              </NavLink>
             </li>
           </ul>
         </div>
