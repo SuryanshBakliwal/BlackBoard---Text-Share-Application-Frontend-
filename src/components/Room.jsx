@@ -17,6 +17,7 @@ function Room() {
     const connectCountRef = useRef(0);
     const messageCountRef = useRef(0);
     const sendCountRef = useRef(0);
+    const isRemoteUpdate = useRef(false);
 
     const [content, setContent] = useState("");
     const [language, setLanguage] = useState("plaintext");
@@ -36,6 +37,12 @@ function Room() {
 
     // Handle editor change with debounce
     const handleEditorChange = (value) => {
+
+        if (isRemoteUpdate.current) {
+            isRemoteUpdate.current = false;
+            return;
+        }
+
         setContent(value || "");
 
         if (debounceRef.current) {
@@ -100,9 +107,7 @@ function Room() {
         };
 
         socket.onmessage = (e) => {
-            // messageCountRef.current += 1;
-            // console.log("Messages received:", messageCountRef.current);
-
+            isRemoteUpdate.current = true;  // 🔥 mark as remote
             setContent(e.data);
         };
 
